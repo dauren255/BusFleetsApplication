@@ -1,11 +1,16 @@
 package com.example.busfleetsapplication.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.busfleetsapplication.R
+import com.example.busfleetsapplication.model.ItemAdapter
+import com.example.busfleetsapplication.model.Model
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,6 +27,9 @@ class WorkFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    var recyclerView: RecyclerView? = null
+    var itemList: List<Model>? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -35,9 +43,24 @@ class WorkFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_work, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_work, container, false)
+
+        recyclerView = view.findViewById<View>(R.id.scheduleRecyclerView) as RecyclerView?
+        recyclerView?.setHasFixedSize(true)
+        recyclerView?.setLayoutManager(LinearLayoutManager(context))
+
+        recyclerView?.setAdapter(context?.let { ItemAdapter(initData() as List<Model>, it) })
+
+        return view
     }
 
+    private fun initData(): List<Model?>? {
+        itemList = ArrayList()
+        (itemList as ArrayList<Model>).add(Model(R.drawable.ic_bus, "Алматы - Семей"))
+        (itemList as ArrayList<Model>).add(Model(R.drawable.ic_bus, "Алматы - Шымкент"))
+        (itemList as ArrayList<Model>).add(Model(R.drawable.ic_bus, "Алматы - Тараз"))
+        return itemList
+    }
     companion object {
         /**
          * Use this factory method to create a new instance of
