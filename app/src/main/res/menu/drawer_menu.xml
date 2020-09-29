@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/SellTickets"
+            android:title="Продажа Билетов"
+            android:icon="@drawable/ic_tickets"/>
+        <item
+            android:id="@+id/ShowAdmin"
+            android:title="Список Администраторов"
+            android:icon="@drawable/ic_admin"/>
+        <item
+            android:id="@+id/Buses"
+            android:title="Автобусы"
+            android:icon="@drawable/ic_bus"/>
+        <item
+            android:id="@+id/Statistics"
+            android:title="Статистика"
+            android:icon="@drawable/ic_stats"/>
+        <item
+            android:id="@+id/Passengers"
+            android:title="Пассажиры"
+            android:icon="@drawable/ic_passengers"/>
+        <item
+            android:id="@+id/Schedule"
+            android:title="Расписание"
+            android:icon="@drawable/ic_dashboard"/>
+        <item
+            android:id="@+id/History"
+            android:title="История"
+            android:icon="@drawable/ic_history"/>
+        <item
+            android:id="@+id/Settings"
+            android:title="Настройки"
+            android:icon="@drawable/ic_settings"/>
+    </group>
+
+</menu>
