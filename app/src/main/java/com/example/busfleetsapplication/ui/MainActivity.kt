@@ -1,22 +1,17 @@
 package com.example.busfleetsapplication.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
-import androidx.fragment.app.FragmentTransaction
 import com.example.busfleetsapplication.R
-import com.example.busfleetsapplication.fragment.HomeFragment
-import com.example.busfleetsapplication.fragment.WorkFragment
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-
-    lateinit var homeFragment: HomeFragment;
-    lateinit var workFragment: WorkFragment;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,35 +34,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawerLayout.addDrawerListener(drawerToggle)
         drawerToggle.syncState()
         nav_view.setNavigationItemSelectedListener(this)
-
-        homeFragment = HomeFragment()
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.frame_layout, homeFragment)
-            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-            .commit()
      }
 
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
 
         when(menuItem.itemId){
-            R.id.SellTickets -> {
-                homeFragment =
-                    HomeFragment()
-                supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.frame_layout, homeFragment)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                    .commit()
-            }
             R.id.Schedule -> {
-                workFragment =
-                    WorkFragment()
-                supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.frame_layout, workFragment)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                    .commit()
+                val intent = Intent(this, ScheduleActivity::class.java)
+                startActivity(intent)
             }
         }
         drawerLayout.closeDrawer(GravityCompat.START)
