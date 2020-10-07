@@ -1,13 +1,15 @@
 package com.example.busfleetsapplication.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.busfleetsapplication.R
-import com.example.busfleetsapplication.model.ItemAdapter
-import com.example.busfleetsapplication.model.Model
+import com.example.busfleetsapplication.model.BusAdapter
+import com.example.busfleetsapplication.model.Bus
 import kotlinx.android.synthetic.main.activity_schedule.*
+import kotlinx.android.synthetic.main.rowitem.*
 
 class ScheduleActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,13 +22,15 @@ class ScheduleActivity : AppCompatActivity() {
         scheduleRecyclerView.layoutManager = LinearLayoutManager(this)
 
         val buses = mutableListOf(
-            Model(R.drawable.ic_bus,"YUTONG", "Алматы-Семей", "16:30", "20:30"),
-            Model(R.drawable.ic_bus,"YUTONG", "Алматы-Тараз", "16:30", "20:30"),
-            Model(R.drawable.ic_bus,"YUTONG", "Алматы-Караганда", "16:30", "20:30")
+            Bus(R.drawable.ic_bus,"YUTONG1", "Алматы-Семей", "16:30", "20:30"),
+            Bus(R.drawable.ic_bus,"YUTONG2", "Алматы-Тараз", "16:30", "20:30"),
+            Bus(R.drawable.ic_bus,"YUTONG3", "Алматы-Караганда", "16:30", "20:30")
         )
-        scheduleRecyclerView.adapter = ItemAdapter(itemList = buses,
+        scheduleRecyclerView.adapter = BusAdapter(itemList = buses,
             onItemClick = {
-                Toast.makeText(this, it.toString(), Toast.LENGTH_LONG).show()
+                val intent = Intent(this, BusActivity::class.java)
+                intent.putExtra(BusActivity.EXTRA_DATA, it.busName)
+                startActivity(intent)
             })
     }
 }
