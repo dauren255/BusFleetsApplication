@@ -1,16 +1,15 @@
 package com.example.busfleetsapplication.ui
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.Button
+import android.widget.EditText
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.busfleetsapplication.R
-import com.example.busfleetsapplication.model.Bus
-import com.example.busfleetsapplication.model.BusAdapter
-import com.example.busfleetsapplication.model.Place
-import com.example.busfleetsapplication.model.PlaceAdapter
+import com.example.busfleetsapplication.model.*
 import kotlinx.android.synthetic.main.activity_bus.*
-import kotlinx.android.synthetic.main.activity_schedule.*
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 
 class BusActivity : AppCompatActivity() {
@@ -26,55 +25,45 @@ class BusActivity : AppCompatActivity() {
     }
 
     private fun setupViews() {
-        val data = intent.getStringExtra(EXTRA_DATA)
+        val data = intent.getParcelableExtra<Bus> (EXTRA_DATA)
         takenPlacesRecyclerView.layoutManager = LinearLayoutManager(this)
         freePlacesRecyclerView.layoutManager = LinearLayoutManager(this)
-        if (data == "YUTONG1") {
-            val takens = mutableListOf(
-                Place("Aigerim", "1A", "ONLINE"),
-                Place("Dias", "2A", "ONLINE"),
-                Place("Assel", "3A", "ONLINE")
 
-            )
-            val frees = mutableListOf(
-                Place("No name", "1A", "No type"),
-                Place("No name", "2A", "No type"),
-                Place("No name", "3A", "No type")
-            )
-            takenPlacesRecyclerView.adapter = PlaceAdapter(places = takens)
-            freePlacesRecyclerView.adapter = PlaceAdapter(places = frees)
-        } else if (data == "YUTONG2") {
-            val takens = mutableListOf(
-                Place("Aigerim", "1A", "ONLINE"),
-                Place("Dias", "2A", "ONLINE")
+        if (data?.busName == "YUTONG1") {
+            freePlacesRecyclerView.adapter = PlaceAdapter(data.getFreePlaces(), onItemClick = {})
+            takenPlacesRecyclerView.adapter = PlaceAdapter(data.getTakenPlaces(), onItemClick = {
+                val dialog = BottomSheetDialog(this)
+                val view = layoutInflater.inflate(R.layout.layout_bottom_sheet, null)
+                val name = view.findViewById<EditText>(R.id.sheetClientName)
+                val phone = view.findViewById<EditText>(R.id.sheetClientPhone)
+                val email = view.findViewById<EditText>(R.id.sheetClientEmail)
+                val placeName = view.findViewById<EditText>(R.id.sheetClientPlace)
+                val price = view.findViewById<EditText>(R.id.sheetClientPlacePrice)
+                name.setText(it.placeClient?.clientName)
+                phone.setText(it.placeClient?.clientPhone)
+                placeName.setEnabled(false)
+                placeName.setText(it.placeName)
+                price.setText(it.placePrice.toString())
+                val saveButton = view.findViewById<Button>(R.id.sheetSaveButton)
+                val deleteButton = view.findViewById<Button>(R.id.sheetDeleteButton)
+                saveButton.setOnClickListener(View.OnClickListener { view ->
+                    it.setClient(Client(name.text.toString(),phone.text.toString(), Type.ONLINE))
+                    dialog.dismiss()
+                    finish();
+                    startActivity(getIntent());
+                })
+                deleteButton.setOnClickListener(View.OnClickListener { view ->
+                    it.deleteClient()
+                    dialog.dismiss()
+                    finish();
+                    startActivity(getIntent());
+                })
+                dialog.setContentView(view)
+                dialog.show()
+            })
 
-            )
-            takenPlacesRecyclerView.adapter = PlaceAdapter(places = takens)
-
-            val frees = mutableListOf(
-                Place("No name", "1A", "No type"),
-                Place("No name", "2A", "No type"),
-                Place("No name", "3A", "No type"),
-                Place("No name", "3A", "No type")
-
-
-            )
-            freePlacesRecyclerView.adapter = PlaceAdapter(places = frees)
-        } else if (data == "YUTONG3") {
-            val takens = mutableListOf(
-                Place("Aigerim", "1A", "ONLINE")
-            )
-            takenPlacesRecyclerView.adapter = PlaceAdapter(places = takens)
-
-            val frees = mutableListOf(
-                Place("No name", "1A", "No type"),
-                Place("No name", "2A", "No type"),
-                Place("No name", "3A", "No type"),
-                Place("No name", "2A", "No type"),
-                Place("No name", "3A", "No type")
-
-            )
-            freePlacesRecyclerView.adapter = PlaceAdapter(places = frees)
         }
     }
 }
+
+

@@ -8,7 +8,9 @@ import com.example.busfleetsapplication.R
 import kotlinx.android.synthetic.main.placesitem.view.*
 
 class PlaceAdapter(
-    var places: List<Place>
+    var places: List<Place>,
+    private val onItemClick: (Place) -> Unit
+
 ) : RecyclerView.Adapter<PlaceAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -22,9 +24,18 @@ class PlaceAdapter(
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bindItem(place: Place){
-            itemView.clientName.text = place.name
-            itemView.clientPlace.text = place.place
-            itemView.clientType.text = place.type
+            if(place.placeClient == null) {
+                itemView.clientName.text = "Нет имени"
+                itemView.clientPlace.text = place.placeName
+                itemView.clientType.text = "Нет типа"
+            } else {
+                itemView.clientName.text = place.placeClient?.clientName
+                itemView.clientPlace.text = place.placeName
+                itemView.clientType.text = place.placeClient?.clientType?.name
+            }
+            itemView.setOnClickListener{
+                onItemClick(place)
+            }
         }
     }
 }

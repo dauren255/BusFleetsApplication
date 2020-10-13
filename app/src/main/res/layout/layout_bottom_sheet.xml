@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottomSheetContainer"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingRight="15dp"
+    android:paddingLeft="15dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Информация о пассажире"
+        android:textSize="24dp"
+        android:gravity="center"
+        android:layout_margin="10dp"/>
+    <TableRow
+        android:id="@+id/hr"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#444"></TableRow>
+    <EditText
+        android:id="@+id/sheetClientName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Имя"/>
+    <EditText
+        android:id="@+id/sheetClientPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Номер" />
+    <EditText
+        android:id="@+id/sheetClientEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Почта"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1">
+        <EditText
+            android:id="@+id/sheetClientPlace"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:hint="Место"/>
+        <EditText
+            android:id="@+id/sheetClientPlacePrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:hint="Цена"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:layout_marginBottom="5dp">
+        <Button
+            android:id="@+id/sheetSaveButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="Изменить"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
+            android:layout_marginRight="2dp"/>
+        <Button
+            android:id="@+id/sheetSendCheckButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="Отправить чек"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
+            android:layout_marginLeft="2dp"/>
+    </LinearLayout>
+    <Button
+        android:id="@+id/sheetDeleteButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Отменить Покупку Билета"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"
+        android:layout_marginBottom="10dp"/>
+</LinearLayout>
